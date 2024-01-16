@@ -5,7 +5,7 @@ const Game = () => {
   const canvasRef = useRef(null);
   const [fillColor, setFillColor] = useState("#000000");
   const [filledAreas, setFilledAreas] = useState([]);
-  const imageurl = window.location.pathname.slice(1);
+  const imageurl = window.location.search.split("=")[1];
   const [canvasWidth, setWidth] = useState(400);
 
   console.log("🚀 ~ Game ~ imageurl:", imageurl);

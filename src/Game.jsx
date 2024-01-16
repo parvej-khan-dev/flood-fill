@@ -45,13 +45,14 @@ const Game = () => {
 
     const image = new Image();
 
-    const setupImage = () => {
+    const setupImage = (width) => {
       image.src = imageurl; //"./boat.png";
       image.crossOrigin = "Anonymous";
 
       image.onload = () => {
         // Draw the image on the canvas
-        context.drawImage(image, 0, 0, canvas.width, canvas.height);
+        context.drawImage(image, 0, 0, width, canvas.height);
+
         fillExistingColors();
       };
 
@@ -59,9 +60,19 @@ const Game = () => {
     };
 
     setupImage();
+    function handleResize() {
+      setWidth(window.innerWidth);
+      setupImage(window.innerWidth);
+    }
+
+    window.addEventListener("resize", () => {
+      console.log("window.innerHeight", window.innerWidth);
+      handleResize();
+    });
 
     const cleanup = () => {
       canvas.removeEventListener("click", handleClick);
+      window.removeEventListener("resize", handleResize);
     };
 
     return cleanup;
@@ -79,12 +90,10 @@ const Game = () => {
     fillExistingColors();
   }, [fillColor, filledAreas, handleFill]);
 
-  useEffect(() => {
-    setWidth(window.innerWidth);
-  }, [window.innerWidth]);
+  console.log("wid", canvasWidth);
 
   return (
-    <>  
+    <>
       <input
         type="color"
         name="color-picker"
@@ -94,7 +103,7 @@ const Game = () => {
 
       <canvas
         ref={canvasRef}
-        width={420}
+        width={canvasWidth}
         height={500}
         className="canvas-temp"
       />

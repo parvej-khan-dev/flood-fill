@@ -45,7 +45,7 @@ const Game = () => {
 
     const image = new Image();
 
-    const setupImage = (width) => {
+    const setupImage = (width, height) => {
       image.src = imageurl; //"./boat.png";
       image.crossOrigin = "Anonymous";
 
@@ -61,8 +61,10 @@ const Game = () => {
 
     setupImage();
     function handleResize() {
-      setWidth(window.innerWidth);
-      setupImage(window.innerWidth);
+      const setWindowWidth = window.outerWidth - 50;
+      const setHeight = window.outerHeight - 50;
+      setWidth(setWindowWidth);
+      setupImage(setWindowWidth);
     }
 
     window.addEventListener("resize", () => {

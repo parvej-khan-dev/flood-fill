@@ -40,9 +40,3 @@ ul {
   display: flex;
   flex-direction: row;
 }
-
-.canvas-temp {
-  width: 100%;
-  max-width: 420px; /* Adjust the maximum width as needed */
-  height: auto;
-}

@@ -40,8 +40,9 @@ ul {
   display: flex;
   flex-direction: row;
 }
-@media only screen and (max-width: 600px) {
-  .canvas-temp {
-  width: lightblue;
-  }
+
+.canvas-temp {
+  width: 100%;
+  max-width: 420px; /* Adjust the maximum width as needed */
+  height: auto;
 }

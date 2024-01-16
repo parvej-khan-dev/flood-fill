@@ -6,7 +6,7 @@ const Game = () => {
   const [fillColor, setFillColor] = useState("#000000");
   const [filledAreas, setFilledAreas] = useState([]);
   const imageurl = window.location.search.split("=")[1];
-  const [canvasWidth, setWidth] = useState(400);
+  
 
   console.log("🚀 ~ Game ~ imageurl:", imageurl);
 
@@ -34,41 +34,37 @@ const Game = () => {
     [handleFill, fillColor, setFilledAreas]
   );
 
-  useEffect(
-    () => {
-      const canvas = canvasRef.current;
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) {
+      return;
+    }
 
-      if (!canvas) {
-        return;
-      }
+    const context = canvas.getContext("2d");
 
-      const context = canvas.getContext("2d");
+    const image = new Image();
 
-      const image = new Image();
+    const setupImage = () => {
+      image.src = imageurl; //"./boat.png";
+      image.crossOrigin = "Anonymous";
 
-      const setupImage = () => {
-        image.src = imageurl; //"./boat.png";
-        image.crossOrigin = "Anonymous";
-
-        image.onload = () => {
-          // Draw the image on the canvas
-          context.drawImage(image, 0, 0, canvas.width, canvas.height);
-          fillExistingColors();
-        };
-
-        canvas.addEventListener("click", handleClick);
+      image.onload = () => {
+        // Draw the image on the canvas
+        context.drawImage(image, 0, 0, canvas.width, canvas.height);
+        fillExistingColors();
       };
 
-      setupImage();
+      canvas.addEventListener("click", handleClick);
+    };
 
-      const cleanup = () => {
-        canvas.removeEventListener("click", handleClick);
-      };
+    setupImage();
 
-      return cleanup;
-    },
-    [fillColor]
-  );
+    const cleanup = () => {
+      canvas.removeEventListener("click", handleClick);
+    };
+
+    return cleanup;
+  }, [fillColor]);
 
   const fillExistingColors = () => {
     console.log("filledAreas", filledAreas);
@@ -77,20 +73,6 @@ const Game = () => {
       handleFill(x, y, color);
     });
   };
-
-  useEffect(
-    () => {
-      fillExistingColors();
-    },
-    [fillColor, filledAreas, handleFill]
-  );
-
-  useEffect(
-    () => {
-      setWidth(window.innerWidth);
-    },
-    [window.innerWidth]
-  );
 
   return (
     <>
@@ -102,12 +84,7 @@ const Game = () => {
         style={{ margin: "10px" }}
       />
 
-      <canvas
-        ref={canvasRef}
-        width={canvasWidth}
-        height={500}
-        className="canvas-temp"
-      />
+      <canvas ref={canvasRef} height={500} className="canvas-temp" />
     </>
   );
 };

@@ -6,7 +6,7 @@ const Game = () => {
   const [fillColor, setFillColor] = useState("#000000");
   const [filledAreas, setFilledAreas] = useState([]);
   const imageurl = window.location.search.split("=")[1];
-  
+  const [canvasWidth, setWidth] = useState(400);
 
   console.log("🚀 ~ Game ~ imageurl:", imageurl);
 
@@ -36,6 +36,7 @@ const Game = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
+
     if (!canvas) {
       return;
     }
@@ -74,9 +75,16 @@ const Game = () => {
     });
   };
 
+  useEffect(() => {
+    fillExistingColors();
+  }, [fillColor, filledAreas, handleFill]);
+
+  useEffect(() => {
+    setWidth(window.innerWidth);
+  }, [window.innerWidth]);
+
   return (
-    <>
-      <label htmlFor="color-picker">Choose your color</label>
+    <>  
       <input
         type="color"
         name="color-picker"
@@ -84,7 +92,12 @@ const Game = () => {
         style={{ margin: "10px" }}
       />
 
-      <canvas ref={canvasRef} height={500} className="canvas-temp" />
+      <canvas
+        ref={canvasRef}
+        width={420}
+        height={500}
+        className="canvas-temp"
+      />
     </>
   );
 };

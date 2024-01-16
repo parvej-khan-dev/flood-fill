@@ -46,13 +46,19 @@ const Game = () => {
     const image = new Image();
 
     const setupImage = (width, height) => {
+      console.log("🚀 ~ setupImage ~ width:", width)
       image.src = imageurl; //"./boat.png";
       image.crossOrigin = "Anonymous";
 
       image.onload = () => {
         // Draw the image on the canvas
-        context.drawImage(image, 0, 0, width, canvas.height);
-
+        context.drawImage(
+          image,
+          0,
+          0,
+          width ? width : canvas.width,
+          canvas.height
+        );
         fillExistingColors();
       };
 
@@ -62,7 +68,7 @@ const Game = () => {
     setupImage();
     function handleResize() {
       const setWindowWidth = window.outerWidth - 50;
-      const setHeight = window.outerHeight - 50;
+      // const setHeight = window.outerHeight - 50;
       setWidth(setWindowWidth);
       setupImage(setWindowWidth);
     }

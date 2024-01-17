@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<button onclick="sendMsg()">Send Message</button>
+
+<iframe id="da-iframe" src="http://localhost:3001/?url=https://storage.googleapis.com/little-lit/GameTheme%2FSchool%2Fcolorify%2Fboy_playing.png" frameborder="0"></iframe>
+
+<script>
+
+
+function sendMsg() {
+    var iframeWin = document.getElementById("da-iframe").contentWindow;
+    iframeWin.postMessage(JSON.stringify({type: 'undo'}), "*");
+
+}
+window.addEventListener("message", (e) => {
+    console.log(e.data);
+    const eventType = JSON.parse(e.data);
+    switch (eventType.type) {
+    case "image":
+        window.alert("image");
+        break;
+    default:
+        break; 
+    }
+});
+
+</script>
+
+</body>
+</html>

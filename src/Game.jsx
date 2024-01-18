@@ -3,7 +3,7 @@ import FloodFill from "q-floodfill";
 
 const Game = () => {
   const canvasRef = useRef(null);
-  const [fillColor, setFillColor] = useState("#000000");
+  const [fillColor, setFillColor] = useState("#348D73");
   const [filledAreas, setFilledAreas] = useState([]);
   const imageurl = window.location.search.split("=")[1].replace("&height", "");
 
@@ -215,6 +215,7 @@ const Game = () => {
           type="color"
           name="color-picker"
           className="color-picker"
+          value={fillColor}
           onChange={(e) => setFillColor(e.target.value)}
           style={{ margin: "10px" }}
         />

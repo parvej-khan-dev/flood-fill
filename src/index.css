@@ -51,3 +51,23 @@ body {
     display: none;
   }
 } */
+
+
+#colorPickerWrapper {
+  position: fixed;
+  left: 10px;
+  top: 10px;
+}
+
+#colorPickerWrapper input{
+  display: none;
+}
+
+#colorPickerWrapper img {
+  width: 50px;
+  height: 50px;
+}
+
+#colorPickerWrapper a{
+  display: block;
+}

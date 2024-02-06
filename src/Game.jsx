@@ -7,6 +7,8 @@ const Game = () => {
   const [filledAreas, setFilledAreas] = useState([]);
   const imageurl = window.location.search.split("=")[1].replace("&height", "");
 
+  const inputRef = useRef(null);
+
   const searchParam = window.location.search.split("&");
   console.log("🚀 ~ Game ~ searchParam:", searchParam);
 
@@ -176,18 +178,30 @@ const Game = () => {
     };
   }, [filledAreas]);
 
+  const enableColorPicker = (e) => {
+    if (inputRef != null) {
+      inputRef.current.click();
+    }
+  }
+
   if (width && height) {
     return (
       <>
         <div className="draw-pad phone">
-          <input
-            type="color"
-            name="color-picker"
-            className="color-picker"
-            value={fillColor}
-            onChange={(e) => setFillColor(e.target.value)}
-            style={{ margin: "10px" }}
-          />
+          <div id="colorPickerWrapper">
+            <input
+              ref={inputRef}
+              type="color"
+              name="color-picker"
+              className="color-picker"
+              value={fillColor}
+              onChange={(e) => setFillColor(e.target.value)}
+              style={{ margin: "10px" }}
+            />
+            <a href="javascript:;" onClick={enableColorPicker} >
+              <img src="/color_picker.png" alt="Color Picker" />
+            </a>
+          </div>
 
           <canvas
             ref={canvasRef}

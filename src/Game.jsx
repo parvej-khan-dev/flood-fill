@@ -180,7 +180,8 @@ const Game = () => {
 
   const enableColorPicker = (e) => {
     if (inputRef != null) {
-      inputRef.current.click();
+      // inputRef.current.click();
+      document.querySelector("#colorPickerWrapper input").click();
     }
   }
 

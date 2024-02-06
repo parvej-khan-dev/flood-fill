@@ -189,7 +189,7 @@ const Game = () => {
     return (
       <>
         <div className="draw-pad phone">
-          <div id="colorPickerWrapper">
+          <div id="colorPickerWrapper" style={{backgroundColor: fillColor}}>
             <input
               ref={inputRef}
               type="color"
@@ -200,7 +200,7 @@ const Game = () => {
               style={{ margin: "10px" }}
             />
             <a href="javascript:;" onClick={enableColorPicker} >
-              <img src="/color_picker.png" alt="Color Picker" />
+              <img src="/color_picker_n.png" alt="Color Picker" />
             </a>
           </div>
 

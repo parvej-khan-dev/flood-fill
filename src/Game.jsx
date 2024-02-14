@@ -60,7 +60,7 @@ const Game = () => {
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
-      // const context = canvasRef.current.getContext("2d");
+      const context = canvasRef.current.getContext("2d");
       // const pixelData = context.getImageData(x, y, 1, 1).data;
 
       // // // Check if the alpha value is 0 (fully transparent)

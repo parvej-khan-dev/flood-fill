@@ -60,14 +60,14 @@ const Game = () => {
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
-      const context = canvasRef.current.getContext("2d");
-      const pixelData = context.getImageData(x, y, 1, 1).data;
+      // const context = canvasRef.current.getContext("2d");
+      // const pixelData = context.getImageData(x, y, 1, 1).data;
 
-      // // Check if the alpha value is 0 (fully transparent)
-      if (pixelData[3] !== 0) {
-        console.log("Clicked on the border, not filling color");
-        return;
-      }
+      // // // Check if the alpha value is 0 (fully transparent)
+      // if (pixelData[3] !== 0) {
+      //   console.log("Clicked on the border, not filling color");
+      //   return;
+      // }
 
       setFilledAreas((prevAreas) => [...prevAreas, { x, y, color: fillColor }]);
       handleFill(x, y, fillColor);

@@ -54,40 +54,42 @@ const Game = () => {
     }
   };
 
-  const handleClick = useCallback(
-    (e) => {
-      const rect = canvasRef.current.getBoundingClientRect();
-      console.log("🚀 ~ Game ~ rect:", rect);
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      setFilledAreas((prevAreas) => [...prevAreas, { x, y, color: fillColor }]);
-
-      handleFill(x, y, fillColor);
-    },
-    [handleFill, fillColor, setFilledAreas]
-  );
-
   // const handleClick = useCallback(
   //   (e) => {
   //     const rect = canvasRef.current.getBoundingClientRect();
+  //     console.log("🚀 ~ Game ~ rect:", rect);
   //     const x = e.clientX - rect.left;
   //     const y = e.clientY - rect.top;
 
-  //     const context = canvasRef.current.getContext("2d");
-  //     const pixelData = context.getImageData(x, y, 1, 1).data;
-
-  //     // Check if the alpha value is 0 (fully transparent)
-  //     if (pixelData[3] !== 0) {
-  //       console.log("Clicked on the border, not filling color");
-  //       return;
-  //     }
-
   //     setFilledAreas((prevAreas) => [...prevAreas, { x, y, color: fillColor }]);
+
   //     handleFill(x, y, fillColor);
   //   },
   //   [handleFill, fillColor, setFilledAreas]
   // );
+
+  const handleClick = useCallback(
+    (e) => {
+      const rect = canvasRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const context = canvasRef.current.getContext("2d");
+      const imageData = context.getImageData(x, y, 1, 1).data;
+
+      const pixelColor = `rgba(${imageData[0]}, ${imageData[1]}, ${imageData[2]}, ${imageData[3]})`;
+  
+      const borderColor = "rgba(0, 0, 0, 255)"; 
+      if (pixelColor === borderColor) {
+        console.log("Clicked on the border, not filling color");
+        return;
+      }
+
+      setFilledAreas((prevAreas) => [...prevAreas, { x, y, color: fillColor }]);
+      handleFill(x, y, fillColor);
+    },
+    [handleFill, fillColor, setFilledAreas]
+  );
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -97,6 +99,7 @@ const Game = () => {
     }
 
     const context = canvas.getContext("2d");
+
 
     const image = new Image();
 
